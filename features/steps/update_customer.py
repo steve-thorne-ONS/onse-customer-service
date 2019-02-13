@@ -1,7 +1,7 @@
 from behave import when, then
 
 
-@when(u'"{name}" with ID "{customerId}" changes their surname to "{new_name}"')
+@when(u'customer with ID "{customerId}" changes their surname to "{new_name}"')
 def update_surname(context, customer_id, new_name):
         response = context.web_client.put(
             f'/customers/{customer_id}',
