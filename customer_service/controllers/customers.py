@@ -26,6 +26,26 @@ def get_customer(customer_id):
                    surname=customer.surname)
 
 
+@customers.route('/<string:customer_id>', methods=['PUT'])
+def update_customer(customer_id):
+    customer_repository = current_app.customer_repository
+
+    customer = commands.get_customer(
+        customer_id=int(customer_id),
+        customer_repository=customer_repository)
+    body = request.get_json()
+
+    customer.surname = body['new_name']
+
+    commands.create_customer(
+        customer=customer,
+        customer_repository=customer_repository)
+
+    return jsonify(customerId=str(customer.customer_id),
+                   firstName=customer.first_name,
+                   surname=customer.surname)
+
+
 @customers.route('/', methods=['POST'])
 def create_customer():
     customer_repository = current_app.customer_repository
